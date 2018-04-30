@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title>Daan Asma</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+    </style>
+</head>
+<body>
+
+<style>
+#map {
+    position: fixed;
+    width:50%;
+}
+#features {
+    width: 50%;
+    margin-left: 50%;
+    font-family: Tw Cen MT;
+    overflow-y: scroll;
+    background-color: #fafafa;
+}
+section {
+    padding:  25px 50px;
+    line-height: 25px;
+    border-bottom: 1px solid #ddd;
+    opacity: 0.25;
+    font-size: 20px;
+}
+section.active {
+    opacity: 1;
+}
+section:last-child {
+    border-bottom: none;
+    margin-bottom: 1000px;
+}
+</style>
+
+<div id='map'></div>
+<div id='features'>
+    <section id='welcome' class='active'>
+        <h3>Hey, there!</h3>
+        <p>Welcome to my geospatial resume! <br><br>I would like to tell you a story about who I am and where I've been. If you want see more, sit back, relax, scroll down and enjoy the flight ??</p>
+    </section>
+    <section id='section1' class='active'>
+        <h3>Growing up</h3>
+        <p>I grew up in the city of Aarschot, Flemish Brabant. </p>
+		<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    </section>
+    <section id='section2'>
+        <h3>Leuven</h3>
+        <p>Life in Leuven.</p>
+		<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    </section>
+    <section id='section3'>
+        <h3>Master Thesis + Travel bug</h3>
+        <p>Ethiopia <br><br> <img src="https://ssl.tzoo-img.com/images/tzoo.93969.0.692656.Simien-Mountains.jpg?width=1030"><br><br></p>
+				http://costavlastara.com/wp-content/uploads/2018/04/quality-connect-the-dot-pictures-clipart-dots-fish.png
+
+    </section>
+    <section id='section4'>
+        <h3>One needs money</h3>
+        <p><iframe src="https://giphy.com/embed/xTiTnqUxyWbsAXq7Ju" width="400" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/yosub-money-donald-duck-cash-xTiTnqUxyWbsAXq7Ju">via GIPHY</a></p><p></p>
+        		
+
+		</p>
+    </section>
+    <section id='section5'>
+        <h3>Lost my heart</h3>
+        <p>Or videos! WHAT!<br><br><iframe width="560" height="315" src="https://www.youtube.com/embed/aKLmQdtzDNM" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> </p>
+</section>
+    <section id='section6'>
+        <h3>Locus</h3>
+        <p>We focus on geospatial data science. Our goal is to connect the dots.</p>
+		 <p> <img src="http://costavlastara.com/wp-content/uploads/2018/04/quality-connect-the-dot-pictures-clipart-dots-fish.png" width="600"><br><br></p>
+
+    </section>
+    <section id='section7'>
+        <h3>Let's get in touch!</h3>
+		<p><a href="https://www.locus.earth/">Locus.earth</a></p>
+    </section>
+</div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiZGFhbmFzbWEiLCJhIjoiY2pnbTYyeHY2MXkzbTJybW1kbGp0cmhiOSJ9.NADr7Y3I05UB3Cb9v5_YGw';
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/outdoors-v10',
+        bearing: -0,
+        center: [4.88, 50.99],
+        zoom: 4,
+        speed: 0.8,
+        pitch: 0
+});
+var chapters = {
+    'welcome': {
+        bearing: -0,
+        center: [4.88, 50.99],
+        zoom: 6,
+        speed: 0.8,
+        pitch: 0
+    },
+    'section1': {
+        bearing: 0,
+        center: [4.88, 50.99],
+        zoom: 12,
+        pitch: 0
+    },
+    'section2': {
+        center: [4.7, 50.879],
+        bearing: 44.40,
+        zoom: 12.66,
+        speed: 0.6,
+        pitch: 99
+    },
+    'section3': {
+        bearing: 0,
+        center: [36.844, 7.67],
+        zoom: 4,
+        speed: 1.2,
+        pitch: 0.00, 
+    },
+    'section4': {
+        bearing: 0,
+        center: [4.4363, 51.147],
+        zoom: 13,
+        speed: 1,
+        pitch: 45
+    },
+    'section5': {
+        bearing: 15.20,
+        center: [-81, 9.5],
+        zoom: 4,
+        pitch: 40.50,
+        speed: 0.6
+    },
+    'section6': {
+        bearing: 0,
+        center: [4.4363, 51.147],
+        zoom: 8,
+        pitch: 0,
+        speed: 0.6
+    },
+    'section7': {
+        bearing: -0,
+        center: [4.4363, 51.147],
+        zoom: 5,
+        speed: 0.8,
+        pitch: 0
+    },
+};
+// On every scroll event, check which element is on screen
+window.onscroll = function() {
+    var chapterNames = Object.keys(chapters);
+    for (var i = 0; i < chapterNames.length; i++) {
+        var chapterName = chapterNames[i];
+        if (isElementOnScreen(chapterName)) {
+            setActiveChapter(chapterName);
+            break;
+        }
+    }
+};
+var activeChapterName = 'baker';
+function setActiveChapter(chapterName) {
+    if (chapterName === activeChapterName) return;
+    map.flyTo(chapters[chapterName]);
+    document.getElementById(chapterName).setAttribute('class', 'active');
+    document.getElementById(activeChapterName).setAttribute('class', '');
+    activeChapterName = chapterName;
+}
+function isElementOnScreen(id) {
+    var element = document.getElementById(id);
+    var bounds = element.getBoundingClientRect();
+    return bounds.top < window.innerHeight && bounds.bottom > 0;
+}
+</script>
+</body>
+</html>
